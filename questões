@@ -35,6 +35,7 @@ console.log(calcular_contagem_regressiva("2027-01-01T00:00:00"));
 
 
 // Questao 2 calcula imc
+
 function calcular_imc(peso, altura) {
   var imc_bruto = peso / (altura * altura);
   var imc_final = Math.round(imc_bruto * 100) / 100;
@@ -64,6 +65,7 @@ console.log(calcular_imc(78.5, 1.75));
 
 
 // Questao 3 tabuada
+
 function gerar_tabuada(numero, limite) {
   if (limite == undefined) {
     limite = 10;
@@ -133,9 +135,12 @@ function validar_usuario(usuario) {
 }
 
 console.log("\n--- TESTE QUESTÃO 4 ---");
+
 console.log(validar_usuario({ nome: "Al", email: "teste", senha: "123" }));
+
 // Questao 5 estatistica de array
-function analisar_numeros(array_de_numeros) {
+function
+ analisar_numeros(array_de_numeros) {
   var total = array_de_numeros.length;
   var maior = array_de_numeros[0];
   var menor = array_de_numeros[0];
@@ -176,3 +181,58 @@ function analisar_numeros(array_de_numeros) {
 
 console.log("\n--- TESTE QUESTÃO 5 ---");
 console.log(analisar_numeros([12, 5, 8, 130, 44, 3]));
+
+
+Q6.1) function celsiusParaFahrenheit(celsius) {
+    if (typeof celsius !== "number") {
+        return "Erro: a entrada deve ser numérica.";
+    }
+
+    return ((celsius * 1.8) + 32).toFixed(2);
+}
+
+Q6.2) function fahrenheitParaCelsius(fahrenheit) {
+    if (typeof fahrenheit !== "number") {
+        return "Erro: a entrada deve ser numérica.";
+    }
+
+    return ((fahrenheit - 32) / 1.8).toFixed(2);
+}
+
+
+Q7) function contarCaracteres(texto) {
+if (typeof texto !== "string") { return "Erro: a entrada deve ser uma string."; }
+const textoNormalizado = texto .normalize("NFD") .replace(/[\u0300-\u036f]/g, "") .toLowerCase();
+const resultado = { vogais: 0, consoantes: 0, espacos: 0, especiais: 0, total: texto.length };
+for (const caractere of textoNormalizado) {
+if (/[aeiou]/.test(caractere)) { resultado.vogais++;
+} else if (/[a-z]/.test(caractere)) { resultado.consoantes++;
+} else if (/\s/.test(caractere)) { resultado.espacos++;
+} else { resultado.especiais++; } } return resultado; }
+Para realizar chamadas:
+const resultado = contarCaracteres("texto");
+console.log(resultado);
+
+Q8) function gerarTokenAleatorio(tamanho = 8, tipo = "alfanumerico") { const numeros = "0123456789"; const letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"; let caracteres;
+if (tipo === "numerico") { caracteres = numeros; } else if (tipo === "letras") { caracteres = letras; } else if (tipo === "alfanumerico") { caracteres = letras + numeros; } else { return "Erro: tipo inválido."; } let token = "";
+for (let i = 0; i < tamanho; i++) { const indice = Math.floor(Math.random() * caracteres.length); token += caracteres[indice]; } return token; }
+
+Chamadas: console.log(gerarTokenAleatorio(8, "alfanumerico")); console.log(gerarTokenAleatorio(6, "numerico")); console.log(gerarTokenAleatorio(10, "letras"));
+
+Q9) function encontrarMaiorPalavra(frase) { 
+if (typeof frase !== "string") { return "Erro: a entrada deve ser uma string."; }
+const fraseLimpa = frase.replace(/[^\p{L}\s]/gu, "");
+
+const palavras = fraseLimpa.split(" "); let maiorPalavra = "";
+
+for (const palavra of palavras) { 
+if (palavra.length > maiorPalavra.length) { maiorPalavra = palavra; } }
+return { palavra: maiorPalavra, tamanho: maiorPalavra.length }; }
+
+const resultado = encontrarMaiorPalavra( "eu adoro paralelepípedos e otorrinolaringologistas." );
+
+console.log(resultado);
+
+Q10) function distribuirTimes(listaDeNomes, quantidadeDeTimes) { if (!Array.isArray(listaDeNomes)) { return "Erro: a lista de nomes deve ser um array."; } if (!Number.isInteger(quantidadeDeTimes) || quantidadeDeTimes <= 0) { return "Erro: a quantidade de times deve ser um número inteiro maior que zero."; } if (quantidadeDeTimes > listaDeNomes.length) { return "Erro: a quantidade de times não pode ser maior que a quantidade de alunos."; } const nomesEmbaralhados = [...listaDeNomes]; for (let i = nomesEmbaralhados.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [nomesEmbaralhados[i], nomesEmbaralhados[j]] = [nomesEmbaralhados[j], nomesEmbaralhados[i]]; } const times = []; for (let i = 0; i < quantidadeDeTimes; i++) { times.push([]); } for (let i = 0; i < nomesEmbaralhados.length; i++) { const indiceDoTime = i % quantidadeDeTimes; times[indiceDoTime].push(nomesEmbaralhados[i]); } return times; }
+
+const resultado = distribuirTimes( ["Ana", "Bruno", "Carlos", "Diana", "Eduardo", "Fernanda"], 2 ); console.log(resultado);
