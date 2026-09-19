@@ -1,0 +1,178 @@
+// Questao 1contador de tempo
+function calcular_contagem_regressiva(data_futura) {
+  var agora = new Date();
+
+  var futuro = new Date(data_futura);
+
+  var diferenca = futuro.getTime() - agora.getTime();
+
+  var total_segundos = Math.floor(diferenca / 1000);
+
+  var dias = Math.floor(total_segundos / (24 * 3600));
+
+  var resto_dias = total_segundos % (24 * 3600);
+
+  var horas = Math.floor(resto_dias / 3600);
+
+  var resto_horas = resto_dias % 3600;
+
+  var minutos = Math.floor(resto_horas / 60);
+
+  var segundos = resto_horas % 60;
+
+  var texto_formatado = "Faltam " + dias + " dias, " + horas + "h, " + minutos + "m e " + segundos + "s";
+
+  return {
+    dias: dias,
+    horas: horas,
+    minutos: minutos,
+    segundos: segundos,
+    texto: texto_formatado
+  };
+}
+console.log("--- TESTE QUESTÃO 1 ---");
+console.log(calcular_contagem_regressiva("2027-01-01T00:00:00"));
+
+
+// Questao 2 calcula imc
+function calcular_imc(peso, altura) {
+  var imc_bruto = peso / (altura * altura);
+  var imc_final = Math.round(imc_bruto * 100) / 100;
+  var classificacao = "";
+
+  if (imc_final < 18.5) {
+    classificacao = "Abaixo do peso";
+  } else if (imc_final >= 18.5 && imc_final <= 24.9) {
+    classificacao = "Peso normal";
+  } else if (imc_final >= 25.0 && imc_final <= 29.9) {
+    classificacao = "Sobrepeso";
+  } else if (imc_final >= 30.0 && imc_final <= 34.9) {
+    classificacao = "Obesidade Grau I";
+  } else if (imc_final >= 35.0 && imc_final <= 39.9) {
+    classificacao = "Obesidade Grau II";
+  } else {
+    classificacao = "Obesidade Grau III";
+  }
+
+  return {
+    imc: imc_final,
+    classificacao: classificacao
+  };
+}
+console.log("\n--- TESTE QUESTÃO 2 ---");
+console.log(calcular_imc(78.5, 1.75));
+
+
+// Questao 3 tabuada
+function gerar_tabuada(numero, limite) {
+  if (limite == undefined) {
+    limite = 10;
+  }
+
+  var tabuada = [];
+
+  for (var i = 1; i <= limite; i++) {
+    var resultado = numero * i;
+    tabuada.push(numero + " x " + i + " = " + resultado);
+  }
+
+  return tabuada;
+}
+console.log("\n--- TESTE QUESTÃO 3 ---");
+console.log(gerar_tabuada(7, 5));
+
+
+// Questao 4 valida usuario
+function validar_usuario(usuario) {
+  var erros = [];
+
+  // checa nome
+  if (usuario.nome.length < 3) {
+    erros.push("Nome deve ter pelo menos 3 caracteres");
+  }
+
+  // checa email
+  var tem_arroba = false;
+  var tem_ponto = false;
+
+  if (usuario.email.includes("@")) {
+    tem_arroba = true;
+  }
+  if (usuario.email.includes(".")) {
+    tem_ponto = true;
+  }
+
+  if (tem_arroba == false || tem_ponto == false) {
+    erros.push("E-mail inválido");
+  }
+
+  // checa senha
+  var tem_numero = false;
+  var numeros = "0123456789";
+
+  for (var i = 0; i < usuario.senha.length; i++) {
+    if (numeros.includes(usuario.senha[i])) {
+      tem_numero = true;
+    }
+  }
+
+  if (usuario.senha.length < 6 || tem_numero == false) {
+    erros.push("Senha deve ter pelo menos 6 caracteres");
+  }
+
+  if (erros.length > 0) {
+    return {
+      valido: false,
+      erros: erros
+    };
+  } else {
+    return {
+      valido: true
+    };
+  }
+}
+
+console.log("\n--- TESTE QUESTÃO 4 ---");
+console.log(validar_usuario({ nome: "Al", email: "teste", senha: "123" }));
+// Questao 5 estatistica de array
+function analisar_numeros(array_de_numeros) {
+  var total = array_de_numeros.length;
+  var maior = array_de_numeros[0];
+  var menor = array_de_numeros[0];
+  var soma = 0;
+  var pares = 0;
+  var impares = 0;
+
+  for (var i = 0; i < array_de_numeros.length; i++) {
+    var num = array_de_numeros[i];
+    soma = soma + num;
+
+    if (num > maior) {
+      maior = num;
+    }
+
+    if (num < menor) {
+      menor = num;
+    }
+
+    if (num % 2 == 0) {
+      pares = pares + 1;
+    } else {
+      impares = impares + 1;
+    }
+  }
+
+  var media = soma / total;
+  var media_arredondada = Math.round(media * 100) / 100;
+  return {
+    total: total,
+    maior: maior,
+    menor: menor,
+    media: media_arredondada,
+    pares: pares,
+    impares: impares
+  };
+}
+
+console.log("\n--- TESTE QUESTÃO 5 ---");
+console.log(analisar_numeros([12, 5, 8, 130, 44, 3]));
